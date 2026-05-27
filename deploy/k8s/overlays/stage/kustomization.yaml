@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: resumeiq-stage
+resources:
+  - ../../base
+images:
+  - name: acrresumeiq.azurecr.io/resumeiq-web
+    newTag: stage
+replicas:
+  - name: resumeiq-web
+    count: 2

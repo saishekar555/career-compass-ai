@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: resumeiq-config
+data:
+  NODE_ENV: "production"
+  VITE_APP_NAME: "ResumeIQ"
+  LOG_LEVEL: "info"
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector.observability:4318"

@@ -11,13 +11,16 @@ export function Navbar() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent shadow-glow">
             <Sparkles className="h-4 w-4 text-primary-foreground" />
           </div>
-          <span className="text-lg font-semibold tracking-tight">ResumeIQ</span>
+          <span className="text-lg font-semibold tracking-tight">ResumeIQ <span className="text-xs text-muted-foreground font-normal">Enterprise</span></span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-6 md:flex">
           <Link to="/" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Home</Link>
           <Link to="/dashboard" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Dashboard</Link>
           <Link to="/analyze" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Analyze</Link>
+          <Link to="/analytics" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Analytics</Link>
+          <Link to="/admin" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Admin</Link>
+          <Link to="/profile" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Profile</Link>
         </nav>
 
         <div className="flex items-center gap-2">
