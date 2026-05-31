@@ -12,20 +12,19 @@ variables:
 
 steps:
 
-- task: SonarQubePrepare@7
+- task: SonarCloudPrepare@3
   inputs:
-    SonarQube: 'SonarQubeConnection'
-    scannerMode: 'cli'
+    SonarCloud: 'SonarCloudConnection'
+    organization: 'saishekar555'
+    scannerMode: 'CLI'
     configMode: 'manual'
-    cliProjectKey: 'career-compass-ai'
+    cliProjectKey: 'saishekar555_career-compass-ai'
     cliProjectName: 'career-compass-ai'
     cliSources: '.'
-    extraProperties: |
-      sonar.branch.name=
 
-- task: SonarQubeAnalyze@7
+- task: SonarCloudAnalyze@3
 
-- task: SonarQubePublish@7
+- task: SonarCloudPublish@3
   inputs:
     pollingTimeoutSec: '300'
 
