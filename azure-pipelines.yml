@@ -20,6 +20,8 @@ steps:
     cliProjectKey: 'career-compass-ai'
     cliProjectName: 'career-compass-ai'
     cliSources: '.'
+    extraProperties: |
+      sonar.branch.name=
 
 - task: SonarQubeAnalyze@7
 
