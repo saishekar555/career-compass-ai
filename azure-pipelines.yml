@@ -16,8 +16,11 @@ variables:
 stages:
 
 - stage: Build
+  displayName: Build and Scan
+
   jobs:
   - job: BuildAndScan
+
     steps:
 
     - task: SonarCloudPrepare@3
@@ -46,16 +49,34 @@ stages:
         tags: |
           $(tag)
 
+# ==========================
+# DEV DEPLOYMENT
+# ==========================
+
 - stage: Dev
+  displayName: Deploy to Dev
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/develop')
+
   jobs:
   - deployment: DeployDev
+
     environment: career-dev
+
     strategy:
       runOnce:
         deploy:
+
           steps:
+
+          - script: |
+              echo "Current Directory:"
+              pwd
+              echo "Repository Files:"
+              ls -la
+            displayName: Debug Repository Files
+
           - task: KubernetesManifest@1
+            displayName: Deploy to AKS Dev
             inputs:
               action: deploy
               kubernetesServiceConnection: career-aks-connection
@@ -63,16 +84,34 @@ stages:
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
 
+# ==========================
+# PROD DEPLOYMENT
+# ==========================
+
 - stage: Prod
+  displayName: Deploy to Prod
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+
   jobs:
   - deployment: DeployProd
+
     environment: career-prod
+
     strategy:
       runOnce:
         deploy:
+
           steps:
+
+          - script: |
+              echo "Current Directory:"
+              pwd
+              echo "Repository Files:"
+              ls -la
+            displayName: Debug Repository Files
+
           - task: KubernetesManifest@1
+            displayName: Deploy to AKS Prod
             inputs:
               action: deploy
               kubernetesServiceConnection: career-aks-connection
