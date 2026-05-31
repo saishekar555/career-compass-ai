@@ -12,25 +12,36 @@ variables:
 
 steps:
 
+- task: SonarQubePrepare@7
+  inputs:
+    SonarQube: 'SonarQubeConnection'
+    scannerMode: 'cli'
+    configMode: 'manual'
+    cliProjectKey: 'career-compass-ai'
+    cliProjectName: 'career-compass-ai'
+    cliSources: '.'
+
+- task: SonarQubeAnalyze@7
+
+- task: SonarQubePublish@7
+  inputs:
+    pollingTimeoutSec: '300'
+
 - task: Docker@2
   displayName: Build and Push Docker Image
-
   inputs:
     command: buildAndPush
     repository: $(imageRepository)
     dockerfile: $(dockerfilePath)
     containerRegistry: career-acr-connection
-
     tags: |
       $(tag)
 
 - task: KubernetesManifest@1
   displayName: Deploy to AKS
-
   inputs:
     action: deploy
     kubernetesServiceConnection: career-aks-connection
     manifests: deployment.yaml
-
     containers: |
       $(containerRegistry)/$(imageRepository):$(tag)
